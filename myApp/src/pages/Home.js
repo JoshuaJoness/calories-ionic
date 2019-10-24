@@ -4,13 +4,13 @@ import axios from 'axios'
 
 import { connect } from 'react-redux'
 import { SET_GENDER } from '../actions/genderActions'
-import setGender from '../actions/genderActions'
+import setGenderMale from '../actions/genderActions'
 
 
 class Home extends React.Component {
 
 	componentWillMount () {
-		this.props.setGender()
+		this.props.setGenderMale()
 	}
 
 	state = {
@@ -68,12 +68,12 @@ class Home extends React.Component {
 		console.log(this.state.user);
 	}
 
-	setGenderMale = () => {
-		let user = this.state.user
-		user.gender = 'male'
-		this.setState({user})
-		console.log(this.state.user);
-	}
+	// setGenderMale = () => {
+	// 	let user = this.state.user
+	// 	user.gender = 'male'
+	// 	this.setState({user})
+	// 	console.log(this.state.user);
+	// }
 
 	setGenderFemale = () => {
 		let user = this.state.user
@@ -149,7 +149,7 @@ class Home extends React.Component {
 				<IonRadioGroup style={styles.boxes}>
 					<IonItem>
 						<IonLabel>Male</IonLabel>
-						<IonRadio slot="start" color="success" value="apple" onClick={this.setGenderMale}></IonRadio>
+						<IonRadio slot="start" color="success" value="apple" onClick={setGenderMale}></IonRadio>
 					</IonItem>
 					<IonItem>
 						<IonLabel>Female</IonLabel>
@@ -206,4 +206,4 @@ class Home extends React.Component {
 	}
 }
 
-export default connect(null, {setGender})(Home);
+export default connect(null, {setGenderMale})(Home);

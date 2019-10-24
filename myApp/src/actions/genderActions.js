@@ -1,6 +1,6 @@
 import { SET_GENDER } from './types'
 
-export const setGender = () => dispatch => {
+export const setGenderMale = (data) => dispatch => {
 		dispatch({
 			type: SET_GENDER,
 			gender: 'male'
@@ -8,4 +8,4 @@ export const setGender = () => dispatch => {
 
 }
 
-export default setGender
+export default setGenderMale
