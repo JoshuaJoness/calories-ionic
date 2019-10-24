@@ -2,7 +2,16 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadi
 import React from 'react';
 import axios from 'axios'
 
+import { connect } from 'react-redux'
+import { SET_GENDER } from '../actions/genderActions'
+import setGender from '../actions/genderActions'
+
+
 class Home extends React.Component {
+
+	componentWillMount () {
+		this.props.setGender()
+	}
 
 	state = {
 		user: {
@@ -108,7 +117,7 @@ class Home extends React.Component {
 		this.setState({maintain, loseWeight, gainWeight})
 		this.props.history.push({
 		  pathname: '/Calories',
-		  maintain: this.state.maintain 
+		  maintain: this.state.maintain
 		})
 	}).catch(err => {
 		console.log(err);
@@ -117,41 +126,61 @@ class Home extends React.Component {
 
 
 	render() {
+		const styles = {
+			boxes:{
+				marginBottom: '30px'
+			},
+			boxes:{
+				marginTop: '30px',
+				marginBottom: '30px'
+			}
+		}
 		return (
 			<IonPage>
+			<IonContent>
 				<IonHeader>
 					<IonToolbar>
-						<IonTitle>Ionic Blank</IonTitle>
+						<IonTitle>Calorie Calculator</IonTitle>
 					</IonToolbar>
 				</IonHeader>
 
-				Are you a man or a woman?
-				<IonRadioGroup>
-					<IonListHeader>
-						<IonLabel>Fruit</IonLabel>
-					</IonListHeader>
+				<IonItem style={styles.boxes}>
+				<IonHeader>Are you:</IonHeader>
+				<IonRadioGroup style={styles.boxes}>
 					<IonItem>
-						<IonLabel>Man</IonLabel>
+						<IonLabel>Male</IonLabel>
 						<IonRadio slot="start" color="success" value="apple" onClick={this.setGenderMale}></IonRadio>
 					</IonItem>
 					<IonItem>
-						<IonLabel>Woman</IonLabel>
+						<IonLabel>Female</IonLabel>
 						<IonRadio slot="start" color="danger" value="cherry" onClick={this.setGenderFemale}></IonRadio>
 					</IonItem>
 				</IonRadioGroup>
+				</IonItem>
 
-				<IonContent className="ion-padding">
-					Please enter your age:
+
+<IonItem style={styles.boxes}>
+				<IonHeader>	Please enter your age: </IonHeader>
+
+
 					<IonInput placeholder="36" onInput={(e)=>this.changeField(e, 'age')}></IonInput>
+</IonItem>
+<IonItem style={styles.boxes}>
 					Please enter your height:
+
+
 					<IonInput placeholder="5'" onIonChange={(e)=>this.convertFeet(e, 'feet')}></IonInput><IonInput placeholder='11"' onIonChange={(e)=>this.setInches(e, 'inches')}></IonInput>
+					</IonItem>
+					<IonItem>
 					How much do you weight?
 					<IonInput placeholder="135lbs" onInput={(e)=>this.changeField(e, 'weight')}></IonInput>
+					</IonItem>
+
+
+					<IonItem style={styles.boxes}>
 					How active do you consider yourself?
 					<IonRadioGroup>
-						<IonListHeader>
-							<IonLabel>Fruit</IonLabel>
-						</IonListHeader>
+
 						<IonItem>
 							<IonLabel>Not Active</IonLabel>
 							<IonRadio slot="start" color="success" value="apple" onClick={this.setActivityLevelLow}></IonRadio>
@@ -163,24 +192,18 @@ class Home extends React.Component {
 						</IonItem>
 
 						<IonItem>
-							<IonLabel>Highly Active</IonLabel>
+							<IonLabel class="ion-text-center">Highly Active</IonLabel>
 							<IonRadio slot="start" color="danger" value="cherry" onClick={this.setActivityLevelHigh}></IonRadio>
 						</IonItem>
 					</IonRadioGroup>
+					</IonItem>
 
 					 <IonButton size="large" color="medium" onClick={this.submit}>Submit</IonButton>
 
-					<p>
-						If you get lost, the{' '}
-						<a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/">
-							docs
-						</a>{' '}
-						will be your guide.
-					</p>
-				</IonContent>
+			</IonContent>
 			</IonPage>
 		);
 	}
 }
 
-export default Home;
+export default connect(null, {setGender})(Home);

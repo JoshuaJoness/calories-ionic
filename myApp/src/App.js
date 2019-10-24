@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
-
+import { Provider } from 'react-redux'
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -23,17 +23,21 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import store from './store'
+
 class App extends React.Component {
 	render() {
 		return (
-			<IonApp>
-				<IonReactRouter>
-					<IonRouterOutlet>
-						<Route path="/home" component={Home} exact={true} />
-						<Route exact path="/" render={() => <Redirect to="/home" />} />
-					</IonRouterOutlet>
-				</IonReactRouter>
-			</IonApp>
+			<Provider store={store}>
+				<IonApp>
+					<IonReactRouter>
+						<IonRouterOutlet>
+							<Route path="/home" component={Home} exact={true} />
+							<Route exact path="/" render={() => <Redirect to="/home" />} />
+						</IonRouterOutlet>
+					</IonReactRouter>
+				</IonApp>
+			</Provider>
 		)
 	}
 }
