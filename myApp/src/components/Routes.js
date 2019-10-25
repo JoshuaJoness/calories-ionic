@@ -7,7 +7,7 @@ import Age from './Age'
 import HeightAndWeight from './HeightAndWeight'
 import ActivityLevel from './ActivityLevel'
 import Greeting from './Greeting'
-
+import Results from './Results'
 
 class Routes extends React.Component {
 	render () {
@@ -17,8 +17,9 @@ class Routes extends React.Component {
 				<Route path='/stats' component={HeightAndWeight} />
 				<Route path='/activity' component={ActivityLevel} />
         <Route path='/gender' component={Gender} />
+				<Route path='/results' component={Results} />
 				<Route path='/age' component={Age} />
-				
+
 				<Route path='/' component={Greeting} />
       </Switch>
     </BrowserRouter>

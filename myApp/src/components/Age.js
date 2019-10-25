@@ -109,7 +109,7 @@ class Age extends React.Component {
 	// }
 
 	submit = () => {
-		console.log(this.state.user);
+		console.log('hello');
 		let user = this.state.user
 		axios.post('http://localhost:4000/calories',
 		this.state.user
@@ -122,7 +122,7 @@ class Age extends React.Component {
 		gainWeight = res.data.gainWeight
 		this.setState({maintain, loseWeight, gainWeight})
 		this.props.history.push({
-			pathname: '/Calories',
+			pathname: '/results',
 			maintain: this.state.maintain
 		})
 	}).catch(err => {
@@ -190,7 +190,7 @@ class Age extends React.Component {
 					</IonItem>
 				</IonRadioGroup>
 
-				<IonButton>Submit</IonButton>
+				<IonButton onClick={this.submit}>Submit</IonButton>
 			</>
 		)
 	}
