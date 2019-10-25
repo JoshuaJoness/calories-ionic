@@ -1,9 +1,11 @@
 import React from 'react'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton, IonRow, IonCol, IonRange, IonIcon } from '@ionic/react';
 import '../styles/global.css'
+import axios from 'axios'
 
 class Age extends React.Component {
-	state={
+	state = {
+		activityLevel:'',
 		user:{
 			totalInches: 0,
 			activityLevel: ''
@@ -58,19 +60,37 @@ class Age extends React.Component {
 		}
 	}
 
-	change (e) {
-		if (e.target.value < 3) {
-			let user = this.state.user
+	change = (e) => {
+		console.log(e.target.value);
+		let user = this.state.user
+		if (e.target.value === 'low') {
 			user.activityLevel = 'low'
-		} else if (e.target.value === 3) {
-				let user = this.state.user
-				user.activityLevel = 'mid'
+			this.setState({user})
+		} else if (e.target.value === 'mid') {
+			user.activityLevel = 'mid'
+			this.setState({user})
 		} else {
-			let user = this.state.user
 			user.activityLevel = 'high'
+			this.setState({user})
 		}
 		console.log(this.state.user);
 	}
+
+	// change = (e) => {
+	// 	console.log(e.target.value);
+	// 	let user = this.state.user
+	// 	if (e.target.value < 3) {
+	// 		user.activityLevel = 'low'
+	// 		this.setState({user})
+	// 	} else if (e.target.value === 3) {
+	// 		user.activityLevel = 'mid'
+	// 		this.setState({user})
+	// 	} else {
+	// 		user.activityLevel = 'high'
+	// 		this.setState({user})
+	// 	}
+	// 	console.log(this.state.user);
+	// }
 
 	// setInches (e){
 	// 	let user = this.state.user
@@ -87,6 +107,29 @@ class Age extends React.Component {
 	// 	}
 	// 	console.log(this.state.user);
 	// }
+
+	submit = () => {
+		console.log(this.state.user);
+		let user = this.state.user
+		axios.post('http://localhost:4000/calories',
+		this.state.user
+	).then(res => {
+		let maintain = this.state.maintain
+		maintain = res.data.maintain
+		let loseWeight = this.state.loseWeight
+		loseWeight = res.data.loseWeight
+		let gainWeight = this.state.gainWeight
+		gainWeight = res.data.gainWeight
+		this.setState({maintain, loseWeight, gainWeight})
+		this.props.history.push({
+			pathname: '/Calories',
+			maintain: this.state.maintain
+		})
+	}).catch(err => {
+		console.log(err);
+	})
+	}
+
 	render(){
 		const styles = {
 			height: {
@@ -125,12 +168,7 @@ class Age extends React.Component {
 				</IonInput>
 				<h3 style={styles.title}>Lastly...How active do you consider yourself?</h3>
 
-				<IonItem>
-					<IonRange onIonChange={this.change} min="0" max="5" step="1" value="1" snaps color="danger">
-						<IonIcon slot="start" size="small" color="danger" name="thermometer"></IonIcon>
-						<IonIcon slot="end" color="danger" name="thermometer"></IonIcon>
-					</IonRange>
-				</IonItem>
+
 
 
 
@@ -138,23 +176,31 @@ class Age extends React.Component {
 				<IonRadioGroup>
 					<IonItem>
 						<IonLabel>Not Active</IonLabel>
-						<IonRadio slot="start" color="success" value="apple" onClick={this.setActivityLevelLow}></IonRadio>
+						<IonRadio slot="start" color="success" value="low"  onClick={this.change}></IonRadio>
 					</IonItem>
 
 					<IonItem>
 						<IonLabel>Moderately Active</IonLabel>
-						<IonRadio slot="start" color="tertiary" value="grape" checked onClick={this.setActivityLevelMid}></IonRadio>
+						<IonRadio slot="start" color="tertiary" value="mid"  onClick={this.change}></IonRadio>
 					</IonItem>
 
 					<IonItem>
 						<IonLabel>Highly Active</IonLabel>
-						<IonRadio slot="start" color="danger" value="cherry" onClick={this.setActivityLevelHigh}></IonRadio>
+						<IonRadio slot="start" color="danger" value="high" onClick={this.change}></IonRadio>
 					</IonItem>
 				</IonRadioGroup>
+
+				<IonButton>Submit</IonButton>
 			</>
 		)
 	}
 
 }
+// <IonItem>
+// 	<IonRange IonChange={this.change} min="0" max="5" step="1" value="1" snaps color="danger">
+// 		<IonIcon slot="start" size="small" color="danger" name="thermometer"></IonIcon>
+// 		<IonIcon slot="end" color="danger" name="thermometer"></IonIcon>
+// 	</IonRange>
+// </IonItem>
 
 export default Age
