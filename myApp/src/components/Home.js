@@ -1,6 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton  } from '@ionic/react';
 import React from 'react';
 import axios from 'axios'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
 class Home extends React.Component {
 
@@ -108,7 +109,7 @@ class Home extends React.Component {
 		this.setState({maintain, loseWeight, gainWeight})
 		this.props.history.push({
 		  pathname: '/Calories',
-		  maintain: this.state.maintain 
+		  maintain: this.state.maintain
 		})
 	}).catch(err => {
 		console.log(err);
