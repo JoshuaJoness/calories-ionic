@@ -5,7 +5,6 @@ import axios from 'axios'
 
 class Age extends React.Component {
 	state = {
-		activityLevel:'',
 		user:{
 			totalInches: 0,
 			activityLevel: ''
@@ -57,6 +56,19 @@ class Age extends React.Component {
 		user.totalInches = user.totalInches + Number(e.target.value)
 		this.setState({user})
 		console.log(this.state.user);
+		}
+	}
+
+	setGender = (e) => {
+		let user = this.state.user
+		if (e.target.value === 'male') {
+			user.gender = 'male'
+			this.setState({user})
+			console.log(this.state.gender);
+		} else {
+			user.gender = 'female'
+			this.setState({user})
+			console.log(this.state.gender);
 		}
 	}
 
@@ -150,6 +162,18 @@ class Age extends React.Component {
 		}
 		return(
 			<>
+				<h1 style={styles.heading}>Are you male or female?</h1>
+				<img src='./female.png'/>
+				<IonRadioGroup>
+					<IonItem>
+						<IonLabel>Male</IonLabel>
+						<IonRadio slot="start" color="success" value="male" onClick={this.setGender}></IonRadio>
+					</IonItem>
+					<IonItem>
+						<IonLabel>Female</IonLabel>
+						<IonRadio slot="start" color="danger" value="female" onClick={this.setGender}></IonRadio>
+					</IonItem>
+				</IonRadioGroup>
 				<div style={styles.titleOne}>Please enter your age:</div>
 				<IonInput style={styles.input} placeholder="Your age here" onInput={(e)=>this.changeField(e, 'age')}></IonInput>
 				<div style={styles.title}>Please enter your height:</div>
@@ -185,7 +209,7 @@ class Age extends React.Component {
 					</IonItem>
 
 					<IonItem>
-						<IonLabel>Highly Active</IonLabel>
+						<IonLabel>Highly Active <IonIcon src="./fitness.svg"></IonIcon></IonLabel>
 						<IonRadio slot="start" color="danger" value="high" onClick={this.change}></IonRadio>
 					</IonItem>
 				</IonRadioGroup>

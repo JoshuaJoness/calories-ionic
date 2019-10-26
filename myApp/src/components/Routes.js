@@ -1,9 +1,8 @@
 import React from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
-import Gender from './Gender'
+import Questions from './Questions'
 import Home from './Home'
-import Age from './Age'
 import HeightAndWeight from './HeightAndWeight'
 import ActivityLevel from './ActivityLevel'
 import Greeting from './Greeting'
@@ -16,9 +15,9 @@ class Routes extends React.Component {
       <Switch>
 				<Route path='/stats' component={HeightAndWeight} />
 				<Route path='/activity' component={ActivityLevel} />
-        <Route path='/gender' component={Gender} />
+        <Route path='/questions' component={Questions} />
 				<Route path='/results' component={Results} />
-				<Route path='/age' component={Age} />
+
 
 				<Route path='/' component={Greeting} />
       </Switch>

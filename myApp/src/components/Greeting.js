@@ -9,28 +9,9 @@ class Greeting extends React.Component {
 
 	click = () => {
 		this.props.history.push({
-		  pathname: '/gender',
+		  pathname: '/questions',
 		  goal: this.state.goal
 		})}
-
-	setGoal = (e) => {
-		if (e.target.value === 'lose') {
-			let goal = this.state.goal
-			goal = 'lose'
-			this.setState({goal})
-			console.log(this.state.goal);
-		} else if (e.target.value === 'maintain'){
-			let goal = this.state.goal
-			goal = 'maintain'
-			this.setState({goal})
-			console.log(this.state);
-		} else {
-			let goal = this.state.goal
-			goal = 'gain'
-			this.setState({goal})
-			console.log(this.state);
-		}
-	}
 
 	render(){
 		const styles = {
@@ -43,42 +24,25 @@ class Greeting extends React.Component {
 			},
 			button: {
 				marginLeft: '40%'
+			},
+			img: {
+				width: '100%'
 			}
 		}
 		return(
 			<>
+				<img style={styles.img} src="./greeting.svg"/>
 				<h1 style={styles.heading}>Welcome to 'Calorie Calculator!'</h1><br></br>
+				<p style={styles.p}>If you'd like to lose weight, build muscle, or simply maintain we can help you!</p><br></br>
 				<p style={styles.p}>Just answer a few questions and we'll let you know how much calories you should be consuming to achieve your goals!</p>
 				<br></br>
-				<p style={styles.p}>First of all are you trying to:</p>
-
-				    <IonList style={styles.p}>
-				      <IonRadioGroup>
 
 
-				        <IonItem>
-				          <IonLabel>Lose Weight</IonLabel>
-				          <IonRadio onClick={this.setGoal} value="lose" />
-				        </IonItem>
-
-								<IonItem>
-									<IonLabel>Maintain</IonLabel>
-									<IonRadio onClick={this.setGoal} value="maintain" />
-								</IonItem>
-
-				        <IonItem>
-				          <IonLabel>Gain Weight</IonLabel>
-				          <IonRadio onClick={this.setGoal} value="gain" />
-				        </IonItem>
-
-				      </IonRadioGroup>
-				    </IonList>
-
-
-
-				<IonButton style={styles.button} onClick={this.click}>
-				Okay!
+				<div className='buttonPosition'></div>
+				<IonButton className='buttonPosition' style={styles.button} onClick={this.click}>
+				Let's go!
 				</IonButton>
+				<div className='buttonPosition'></div>
 			</>
 		)
 	}
