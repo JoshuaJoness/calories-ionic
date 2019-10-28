@@ -9,6 +9,10 @@ class Age extends React.Component {
 		user:{
 			totalInches: 0,
 			activityLevel: ''
+		},
+		height:{
+			feet:[1,2,3,4,5,6,7,8],
+			inches:[1,2,3,4,5,6,7,8,9,11]
 		}
 	}
 
@@ -27,7 +31,7 @@ class Age extends React.Component {
 		console.log(this.state.user);
 	}
 
-	convertFeet (e) {
+	convertFeet = (e) => {
 		let user = this.state.user
 		user.totalInches = Number(e.target.value * 12)
 		this.setState({user})
@@ -49,7 +53,7 @@ class Age extends React.Component {
 	// 	console.log(this.state.user);
 	// }
 
-	setInches (e) {
+	setInches = (e) => {
 		if (this.state.user.totalInches === 0) {
 			alert("Please enter 'feet' first, if you make a mistake, refresh the page")
 		} else {
@@ -209,19 +213,32 @@ class Age extends React.Component {
 				<div style={styles.title}>Please enter your height:</div>
 				<IonRow>
 					<IonCol>
-					<IonInput style={styles.input} placeholder="5'" onInput={(e)=>this.convertFeet(e, 'feet')}>
-					</IonInput>
-					</IonCol>
-					<IonCol>
-					<IonInput style={styles.input} placeholder='11"' onInput={(e)=>this.setInches(e, 'inches')}>
-					</IonInput>
+					<IonItem>
+						<IonLabel>Feet</IonLabel>
+						<IonSelect onIonChange={this.convertFeet}   interface="popover">
+							{
+								this.state.height.feet.map(number => {
+								return <IonSelectOption value={number}>{number}'</IonSelectOption>
+							})
+						}
+						</IonSelect>
+					</IonItem>
+					<IonItem>
+						<IonLabel>Inches</IonLabel>
+						<IonSelect onIonChange={this.setInches}   interface="popover">
+							{
+								this.state.height.inches.map(number => {
+								return <IonSelectOption value={number}>{number}"</IonSelectOption>
+							})
+						}
+						</IonSelect>
+					</IonItem>
 					</IonCol>
 				</IonRow>
 				<div style={styles.title}>Please enter your weight:</div>
 				<IonInput style={styles.input} placeholder="135lbs" onInput={(e)=>this.changeField(e, 'weight')}>
 				</IonInput>
 				<h3 style={styles.title}>Lastly...How active do you consider yourself?</h3>
-
 
 				<IonItem>
           <IonLabel>Activity Level</IonLabel>
