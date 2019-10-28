@@ -1,5 +1,5 @@
 import React from "react";
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton, IonRow, IonCol, IonRange, IonIcon, IonCheckbox, IonSelect, IonSelectOption } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton, IonRow, IonCol, IonRange, IonIcon, IonCheckbox, IonSelect, IonSelectOption, IonList } from '@ionic/react';
 import '../styles/global.css'
 import axios from 'axios'
 
@@ -158,23 +158,12 @@ class Age extends React.Component {
 				width: '50%',
 				display: 'inline'
 			},
-			title:{
-				marginLeft: '5%',
-				marginTop: '5%'
-			},
-			titleOne:{
-				marginLeft:'5%',
-				marginTop: '10%'
-			},
 			input: {
 				marginLeft:'5%'
 			},
 			gender: {
 				padding: '10%',
 				marginLeft: '7%'
-			},
-			genderLabel: {
-				textAlign: 'center'
 			},
 			radio: {
 				marginLeft: '7%',
@@ -186,70 +175,105 @@ class Age extends React.Component {
 			group: {
 				display: 'grid',
 				gridTemplateColumns: '50% 50%'
+			},
+			button: {
+				marginLeft: '40%',
+				marginTop: '8%'
+			},
+			title: {
+				fontWeight: 'bold',
+				marginTop: '7%'
+			},
+			boxes: {
+				display: 'grid',
+				gridTemplateColumns: '50% 50%',
+				marginTop: '5%'
+			},
+			item: {
+				marginTop: '10%'
+			},
+			img: {
+				width: '100%',
+				opacity: '0.5'
 			}
 		}
 		return(
 			<>
-				<h3 style={styles.genderLabel}>Please select a gender:</h3>
+			<img style={styles.img} src="./questions.svg"/>
+			<form>
 
-				<IonRadioGroup style={styles.group}>
+<div style={styles.boxes}>
+<div style={styles.title}>Please select a gender:</div>
+				<IonItem lines="none">
 
-						<div>
-						<img style={styles.gender} src='./maleOne.png'/>
-						<IonCheckbox checked='true' className='checkbox' style={styles.checkbox} slot="start" color="blue" value="male" onClick={this.setGender}></IonCheckbox>
-						</div>
-
-						<div>
-						<img style={styles.gender} src='./femaleOne.png'/>
-						<IonCheckbox className='checkbox' style={styles.checkbox} slot="start" color="danger" value="female" onClick={this.setGender}></IonCheckbox>
-						</div>
-
-				</IonRadioGroup>
-
+					<IonLabel>Gender:</IonLabel>
+					<IonSelect onIonChange={this.setGender}   interface="popover">
+						<IonSelectOption value="male">Male</IonSelectOption>
+						<IonSelectOption value="female">Female</IonSelectOption>
+					</IonSelect>
+				</IonItem>
+				</div>
 
 
-				<div style={styles.titleOne}>Please enter your age:</div>
+<div style={styles.boxes}>
+<div style={styles.title}>Please enter your age:</div>
+<IonItem lines='none'>
+
 				<IonInput style={styles.input} placeholder="Your age here" onInput={(e)=>this.changeField(e, 'age')}></IonInput>
-				<div style={styles.title}>Please enter your height:</div>
-				<IonRow>
-					<IonCol>
-					<IonItem>
+				</IonItem>
+				</div>
+
+<div style={styles.title}>Please enter your height:</div>
+				<div style={styles.boxes}>
+
+					<IonItem lines="none">
+
 						<IonLabel>Feet</IonLabel>
 						<IonSelect onIonChange={this.convertFeet}   interface="popover">
 							{
-								this.state.height.feet.map(number => {
-								return <IonSelectOption value={number}>{number}'</IonSelectOption>
+								this.state.height.feet.map((number, i) => {
+								return <IonSelectOption key={i} value={number}>{number}'</IonSelectOption>
 							})
 						}
 						</IonSelect>
 					</IonItem>
-					<IonItem>
+					<IonItem lines="none">
 						<IonLabel>Inches</IonLabel>
 						<IonSelect onIonChange={this.setInches}   interface="popover">
 							{
-								this.state.height.inches.map(number => {
-								return <IonSelectOption value={number}>{number}"</IonSelectOption>
+								this.state.height.inches.map((number, i) => {
+								return <IonSelectOption key={i} value={number}>{number}"</IonSelectOption>
 							})
 						}
 						</IonSelect>
 					</IonItem>
-					</IonCol>
-				</IonRow>
-				<div style={styles.title}>Please enter your weight:</div>
+
+				</div>
+
+<div style={styles.boxes}>
+<div style={styles.title}>Please enter your weight:</div>
+<IonItem style={styles.item} lines="none">
+
 				<IonInput style={styles.input} placeholder="135lbs" onInput={(e)=>this.changeField(e, 'weight')}>
 				</IonInput>
-				<h3 style={styles.title}>Lastly...How active do you consider yourself?</h3>
+</IonItem>
+</div>
 
-				<IonItem>
+<div style={styles.boxes}>
+	<div style={styles.title}>Lastly...how active do you consider yourself?</div>
+				<IonItem lines="none">
           <IonLabel>Activity Level</IonLabel>
           <IonSelect onIonChange={this.change}   interface="popover">
-            <IonSelectOption value="low" onIonChange={this.test} onClick={this.change}>Not Active</IonSelectOption>
-            <IonSelectOption value="mid" IonChange={this.change}>Moderately Active</IonSelectOption>
-            <IonSelectOption value="high" ionChange={this.change}>Highly Active</IonSelectOption>
+            <IonSelectOption value="low">Not Active</IonSelectOption>
+            <IonSelectOption value="mid">Moderately Active</IonSelectOption>
+            <IonSelectOption value="high">Highly Active</IonSelectOption>
           </IonSelect>
         </IonItem>
+				</div>
 
-				<IonButton onClick={this.submit}>Submit</IonButton>
+				<IonButton style={styles.button} onClick={this.submit}>Submit</IonButton>
+				</form>
+
 			</>
 		)
 	}
