@@ -1,7 +1,8 @@
-import React from 'react'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton, IonRow, IonCol, IonRange, IonIcon } from '@ionic/react';
+import React from "react";
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonRadioGroup, IonListHeader, IonLabel, IonItem, IonRadio, IonButton, IonRow, IonCol, IonRange, IonIcon, IonCheckbox, IonSelect, IonSelectOption } from '@ionic/react';
 import '../styles/global.css'
 import axios from 'axios'
+
 
 class Age extends React.Component {
 	state = {
@@ -60,15 +61,16 @@ class Age extends React.Component {
 	}
 
 	setGender = (e) => {
+		console.log(e.target.value);
 		let user = this.state.user
 		if (e.target.value === 'male') {
 			user.gender = 'male'
 			this.setState({user})
-			console.log(this.state.gender);
+			console.log(this.state.user.gender);
 		} else {
 			user.gender = 'female'
 			this.setState({user})
-			console.log(this.state.gender);
+			console.log(this.state.user.gender);
 		}
 	}
 
@@ -142,6 +144,10 @@ class Age extends React.Component {
 	})
 	}
 
+	test = (e) => {
+		console.log('hello');
+	}
+
 	render(){
 		const styles = {
 			height: {
@@ -158,22 +164,46 @@ class Age extends React.Component {
 			},
 			input: {
 				marginLeft:'5%'
+			},
+			gender: {
+				padding: '10%',
+				marginLeft: '7%'
+			},
+			genderLabel: {
+				textAlign: 'center'
+			},
+			radio: {
+				marginLeft: '7%',
+				padding: '10%'
+			},
+			checkbox:{
+				paddingTop: '5%'
+			},
+			group: {
+				display: 'grid',
+				gridTemplateColumns: '50% 50%'
 			}
 		}
 		return(
 			<>
-				<h1 style={styles.heading}>Are you male or female?</h1>
-				<img src='./female.png'/>
-				<IonRadioGroup>
-					<IonItem>
-						<IonLabel>Male</IonLabel>
-						<IonRadio slot="start" color="success" value="male" onClick={this.setGender}></IonRadio>
-					</IonItem>
-					<IonItem>
-						<IonLabel>Female</IonLabel>
-						<IonRadio slot="start" color="danger" value="female" onClick={this.setGender}></IonRadio>
-					</IonItem>
+				<h3 style={styles.genderLabel}>Please select a gender:</h3>
+
+				<IonRadioGroup style={styles.group}>
+
+						<div>
+						<img style={styles.gender} src='./maleOne.png'/>
+						<IonCheckbox checked='true' className='checkbox' style={styles.checkbox} slot="start" color="blue" value="male" onClick={this.setGender}></IonCheckbox>
+						</div>
+
+						<div>
+						<img style={styles.gender} src='./femaleOne.png'/>
+						<IonCheckbox className='checkbox' style={styles.checkbox} slot="start" color="danger" value="female" onClick={this.setGender}></IonCheckbox>
+						</div>
+
 				</IonRadioGroup>
+
+
+
 				<div style={styles.titleOne}>Please enter your age:</div>
 				<IonInput style={styles.input} placeholder="Your age here" onInput={(e)=>this.changeField(e, 'age')}></IonInput>
 				<div style={styles.title}>Please enter your height:</div>
@@ -193,26 +223,14 @@ class Age extends React.Component {
 				<h3 style={styles.title}>Lastly...How active do you consider yourself?</h3>
 
 
-
-
-
-
-				<IonRadioGroup>
-					<IonItem>
-						<IonLabel>Not Active</IonLabel>
-						<IonRadio slot="start" color="success" value="low"  onClick={this.change}></IonRadio>
-					</IonItem>
-
-					<IonItem>
-						<IonLabel>Moderately Active</IonLabel>
-						<IonRadio slot="start" color="tertiary" value="mid"  onClick={this.change}></IonRadio>
-					</IonItem>
-
-					<IonItem>
-						<IonLabel>Highly Active <IonIcon src="./fitness.svg"></IonIcon></IonLabel>
-						<IonRadio slot="start" color="danger" value="high" onClick={this.change}></IonRadio>
-					</IonItem>
-				</IonRadioGroup>
+				<IonItem>
+          <IonLabel>Activity Level</IonLabel>
+          <IonSelect onIonChange={this.change}   interface="popover">
+            <IonSelectOption value="low" onIonChange={this.test} onClick={this.change}>Not Active</IonSelectOption>
+            <IonSelectOption value="mid" IonChange={this.change}>Moderately Active</IonSelectOption>
+            <IonSelectOption value="high" ionChange={this.change}>Highly Active</IonSelectOption>
+          </IonSelect>
+        </IonItem>
 
 				<IonButton onClick={this.submit}>Submit</IonButton>
 			</>
